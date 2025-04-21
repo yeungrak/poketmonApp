@@ -22,17 +22,17 @@ class ViewController: UIViewController {
         return label
     }()
     
-    var addButton:UIButton = {
+    lazy var addButton:UIButton = {
         let button = UIButton()
         button.setTitle("추가", for: .normal)
         button.backgroundColor = .white
         button.setTitleColor(UIColor.darkGray, for: .normal)
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchDown)
         return button
     }()
     
     var tableView:UITableView = {
         let tableView = UITableView()
-        
         return tableView
     }()
     
@@ -59,7 +59,7 @@ class ViewController: UIViewController {
         }
         tableView.snp.makeConstraints { make in
             make.top.equalTo(friendsListLabel.snp.bottom).offset(50)
-            make.height.equalTo(400)
+            make.height.equalTo(600)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
         }
@@ -91,5 +91,9 @@ extension ViewController: UITableViewDataSource {
         return cell
     }
     
-    
+    @objc func buttonTapped() {
+        print("Tap")
+        let vc = PhoneBookViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
