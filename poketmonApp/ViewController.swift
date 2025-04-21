@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     let numbers = ["010-0000-0000", "010-0000-0000", "010-0000-0000", "010-0000-0000", "010-0000-0000"]
     let imageNames = ["pikacu","pikacu","pikacu","pikacu","pikacu"]
     
-    var label:UILabel = {
+    var friendsListLabel:UILabel = {
         let label = UILabel()
         label.text = "친구 목록"
         label.font = .systemFont(ofSize: 30, weight: .bold)
@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         let button = UIButton()
         button.setTitle("추가", for: .normal)
         button.backgroundColor = .white
-        button.setTitleColor(UIColor.lightGray, for: .normal)
+        button.setTitleColor(UIColor.darkGray, for: .normal)
         return button
     }()
     
@@ -48,21 +48,24 @@ class ViewController: UIViewController {
     }
     
     func configure() {
-        [label,
+        [friendsListLabel,
          tableView,
          addButton
         ].forEach {view.addSubview($0)}
         
-        label.snp.makeConstraints { make in
+        friendsListLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(120)
+            make.top.equalToSuperview().offset(80)
         }
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(label.snp.bottom).offset(50)
+            make.top.equalTo(friendsListLabel.snp.bottom).offset(50)
             make.height.equalTo(400)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
         }
+        addButton.snp.makeConstraints { make in
+            make.centerY.equalTo(friendsListLabel.snp.centerY)
+            make.trailing.equalToSuperview().inset(15)}
     }
     
     
