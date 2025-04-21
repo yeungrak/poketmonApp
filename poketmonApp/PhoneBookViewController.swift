@@ -32,18 +32,18 @@ class PhoneBookViewController: UIViewController {
         let textField = UITextField()
         textField.textColor = .black
         textField.font = .systemFont(ofSize: 16)
-        textField.placeholder = "이름을 입력하세요"        // 안내 문구
-            textField.textColor = .black                      // 글자 색
-            textField.font = .systemFont(ofSize: 16)          // 글자 크기
-            textField.borderStyle = .roundedRect              // 테두리 스타일
+        textField.placeholder = "이름을 입력하세요"
+            textField.textColor = .black
+            textField.font = .systemFont(ofSize: 16)
+            textField.borderStyle = .roundedRect
         return textField
     }()
     
     private var numberTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "전화번호를 입력하세요"        // 안내 문구
-            textField.textColor = .black                      // 글자 색
-            textField.font = .systemFont(ofSize: 16)          // 글자 크기
+        textField.placeholder = "전화번호를 입력하세요"
+            textField.textColor = .black
+            textField.font = .systemFont(ofSize: 16)
             textField.borderStyle = .roundedRect
         return textField
     }()
@@ -52,6 +52,11 @@ class PhoneBookViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         configure()
+        navigationItem()
+    }
+    func navigationItem() {
+        self.title = "연락처 추가"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "적용", style: .plain, target: self, action: nil)
     }
     
     func configure() {
