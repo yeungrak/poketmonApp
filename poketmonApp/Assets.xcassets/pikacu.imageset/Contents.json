@@ -1,12 +1,10 @@
 {
   "images" : [
     {
-      "filename" : "pikacu.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "pikacu2.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

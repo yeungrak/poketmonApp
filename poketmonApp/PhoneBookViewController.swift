@@ -10,7 +10,7 @@ import UIKit
 
 
 class PhoneBookViewController: UIViewController {
-    
+    private var currentImageUrl: String?
     private var profileImage: UIImageView = {
         let profileImage = UIImageView()
         profileImage.contentMode = .scaleAspectFill
@@ -104,7 +104,8 @@ class PhoneBookViewController: UIViewController {
                     
                     
                     DispatchQueue.main.async {
-                        self.profileImage.loadImage(from: poketmonInfo.sprites.front_default)
+                        self.currentImageUrl = poketmonInfo.sprites.front_default
+                            self.profileImage.loadImage(from: poketmonInfo.sprites.front_default)
                     }
                     
                 } else { // 요청 실패 (Status code가 200대 아님)
@@ -117,7 +118,7 @@ class PhoneBookViewController: UIViewController {
 
     func navigationItem() {
         self.title = "연락처 추가"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "적용", style: .plain, target: self, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "적용", style: .plain, target: self, action: #selector(saveFriend))
     }
     
     func configure() {
@@ -152,7 +153,24 @@ class PhoneBookViewController: UIViewController {
         let randomID = Int.random(in: 1...1000)
         fetchData(pokemonID: randomID)
     }
+    
+    @objc func saveFriend() {
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let newFriend = PhoneBook(context: context)
+        newFriend.name = nameTextField.text
+        newFriend.phoneNumber = numberTextField.text
+        newFriend.imageUrl = currentImageUrl // 여기!
+
+        do {
+            try context.save()
+            print("저장 성공!")
+            navigationController?.popViewController(animated: true)
+        } catch {
+            print("저장 실패: \(error.localizedDescription)")
+        }
+    }
 }
+
 
 
 extension UIImageView {

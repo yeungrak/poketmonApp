@@ -7,14 +7,11 @@
 
 import UIKit
 import SnapKit
+import CoreData
 
 class ViewController: UIViewController {
     
-    let names = ["name", "name", "name", "name", "name"]
-    let numbers = ["010-0000-0000", "010-0000-0000", "010-0000-0000", "010-0000-0000", "010-0000-0000"]
-    let imageNames = ["pikacu","pikacu","pikacu","pikacu","pikacu"]
-    
-    
+
     var friendsListLabel:UILabel = {
         let label = UILabel()
         label.text = "친구 목록"
@@ -45,10 +42,28 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.register(TableViewCell.self, forCellReuseIdentifier: "TableViewCell")
         configure()
+        fetchFriends()
         navigationController?.navigationBar.isHidden = true
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchFriends()
+    }
     
+    var savedFriends: [PhoneBook] = []
+
+    func fetchFriends() {
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let request: NSFetchRequest<PhoneBook> = PhoneBook.fetchRequest()
+
+        do {
+            savedFriends = try context.fetch(request)
+            tableView.reloadData()
+        } catch {
+            print("불러오기 실패: \(error.localizedDescription)")
+        }
+    }
     func configure() {
         [friendsListLabel,
          tableView,
@@ -80,15 +95,23 @@ extension ViewController: UITableViewDelegate {
 
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        names.count
+        savedFriends.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as! TableViewCell
         
-        cell.nameLabel.text = names[indexPath.row]
-        cell.numberLabel.text = numbers[indexPath.row]
-        cell.profileImage.image = UIImage(named: imageNames[indexPath.row])
+        let phoneBook = savedFriends[indexPath.row]  // 타입은 PhoneBook!
+        
+        cell.nameLabel.text = phoneBook.name
+        cell.numberLabel.text = phoneBook.phoneNumber
+
+        if let urlString = phoneBook.imageUrl {
+            cell.profileImage.loadImage(from: urlString)
+        } else {
+            cell.profileImage.image = UIImage(named: "defaultImage")
+        }
+
         return cell
     }
     
