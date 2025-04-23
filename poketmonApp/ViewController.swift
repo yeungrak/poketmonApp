@@ -56,6 +56,8 @@ class ViewController: UIViewController {
     func fetchFriends() {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let request: NSFetchRequest<PhoneBook> = PhoneBook.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+            request.sortDescriptors = [sortDescriptor]
 
         do {
             savedFriends = try context.fetch(request)
