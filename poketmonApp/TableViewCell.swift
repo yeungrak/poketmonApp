@@ -47,8 +47,8 @@ class TableViewCell: UITableViewCell {
           nameLabel,
           numberLabel].forEach{contentView.addSubview($0)}
         
-       
-       
+        
+        
         profileImage.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.centerY.equalToSuperview()

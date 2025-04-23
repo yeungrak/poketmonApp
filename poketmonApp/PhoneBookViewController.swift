@@ -105,7 +105,7 @@ class PhoneBookViewController: UIViewController {
                     
                     DispatchQueue.main.async {
                         self.currentImageUrl = poketmonInfo.sprites.front_default
-                            self.profileImage.loadImage(from: poketmonInfo.sprites.front_default)
+                        self.profileImage.loadImage(from: poketmonInfo.sprites.front_default)
                     }
                     
                 } else { // 요청 실패 (Status code가 200대 아님)
@@ -115,7 +115,7 @@ class PhoneBookViewController: UIViewController {
             
         }.resume()
     }
-
+    
     func navigationItem() {
         self.title = "연락처 추가"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "적용", style: .plain, target: self, action: #selector(saveFriend))
@@ -160,7 +160,7 @@ class PhoneBookViewController: UIViewController {
         newFriend.name = nameTextField.text
         newFriend.phoneNumber = numberTextField.text
         newFriend.imageUrl = currentImageUrl // 여기!
-
+        
         do {
             try context.save()
             print("저장 성공!")

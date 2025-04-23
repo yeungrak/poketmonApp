@@ -11,7 +11,7 @@ import CoreData
 
 class ViewController: UIViewController {
     
-
+    
     var friendsListLabel:UILabel = {
         let label = UILabel()
         label.text = "친구 목록"
@@ -52,13 +52,13 @@ class ViewController: UIViewController {
     }
     
     var savedFriends: [PhoneBook] = []
-
+    
     func fetchFriends() {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let request: NSFetchRequest<PhoneBook> = PhoneBook.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-            request.sortDescriptors = [sortDescriptor]
-
+        request.sortDescriptors = [sortDescriptor]
+        
         do {
             savedFriends = try context.fetch(request)
             tableView.reloadData()
@@ -107,13 +107,13 @@ extension ViewController: UITableViewDataSource {
         
         cell.nameLabel.text = phoneBook.name
         cell.numberLabel.text = phoneBook.phoneNumber
-
+        
         if let urlString = phoneBook.imageUrl {
             cell.profileImage.loadImage(from: urlString)
         } else {
             cell.profileImage.image = UIImage(named: "defaultImage")
         }
-
+        
         return cell
     }
     
@@ -123,8 +123,3 @@ extension ViewController: UITableViewDataSource {
         navigationController?.pushViewController(vc, animated: true)
     }
 }
-
-// 첫번째 뷰에서 네비게이션바를 없애고
-// 두번째 뷰에서는 네베게션 바를 생겨야됌
-// 네비게션바는 제일 마지막에 한 설정을 따라감
-// 라이프사이클 고려

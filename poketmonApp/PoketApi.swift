@@ -18,9 +18,9 @@ struct PoketApi: Codable {
     let weight: Int
     let sprites: Sprites
     
-//    var sprites = {
-//        let front_default: String
-    }
+    //    var sprites = {
+    //        let front_default: String
+}
 /*
  {
  "id": 25,
