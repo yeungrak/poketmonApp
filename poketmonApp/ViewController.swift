@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     let numbers = ["010-0000-0000", "010-0000-0000", "010-0000-0000", "010-0000-0000", "010-0000-0000"]
     let imageNames = ["pikacu","pikacu","pikacu","pikacu","pikacu"]
     
+    
     var friendsListLabel:UILabel = {
         let label = UILabel()
         label.text = "친구 목록"
@@ -44,8 +45,9 @@ class ViewController: UIViewController {
         tableView.delegate = self
         tableView.register(TableViewCell.self, forCellReuseIdentifier: "TableViewCell")
         configure()
-        
+        navigationController?.navigationBar.isHidden = true
     }
+    
     
     func configure() {
         [friendsListLabel,
@@ -67,7 +69,6 @@ class ViewController: UIViewController {
             make.centerY.equalTo(friendsListLabel.snp.centerY)
             make.trailing.equalToSuperview().inset(15)}
     }
-    
     
 }
 
@@ -97,3 +98,8 @@ extension ViewController: UITableViewDataSource {
         navigationController?.pushViewController(vc, animated: true)
     }
 }
+
+// 첫번째 뷰에서 네비게이션바를 없애고
+// 두번째 뷰에서는 네베게션 바를 생겨야됌
+// 네비게션바는 제일 마지막에 한 설정을 따라감
+// 라이프사이클 고려
