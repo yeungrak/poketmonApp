@@ -171,8 +171,6 @@ class PhoneBookViewController: UIViewController {
     }
 }
 
-
-
 extension UIImageView {
     func loadImage(from urlString: String) {
         guard let url = URL(string: urlString) else { return }
